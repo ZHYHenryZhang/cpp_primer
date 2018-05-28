@@ -16,7 +16,21 @@ void note_1()
 {
 
     // Good style
-        std::cout << "Style: Begin each line within multiline comment with an asterisk *" << std::endl;
+        /*
+         * std::cout << "Style: Begin each line within multiline comment with an asterisk *" << std::endl;
+         // type choice
+            *  A few rules of thumb can be useful in deciding which type to use:
+            * • Use an unsigned type when you know that the values cannot be negative.
+            * • Use int for integer arithmetic. short is usually too small and, in practice, long often has the same size as int. If your data values are larger than the minimum guaranteed size of an int, then use long long.
+            * • Do not use plain char or bool in arithmetic expressions. Use them only to hold characters or truth values. Computations using char are especially problematic because char is signed on some machines and unsigned on others. If you need a tiny integer, explicitly specify either signed char or unsigned char.
+            * • Use double for floating-point computations; float usually does not have enough precision, and the cost of double-precision calculations versus singleprecision is negligible. In fact, on some machines, double-precision operations are faster than single. The precision offered by long double usually is unnecessary and often entails considerable run-time cost.
+        // conversion between types
+            * • When we assign one of the nonbool arithmetic types to a bool object, the result is false if the value is 0 and true otherwise.
+            * • When we assign a bool to one of the other arithmetic types, the resulting value is 1 if the bool is true and 0 if the bool is false.
+            * • If we assign an out-of-range value to an object of unsigned type, the result is the remainder of the value modulo the number of values the target type can hold. For example, an 8-bit unsigned char can hold values from 0 through 255, inclusive. If we assign a value outside this range, the compiler assigns the remainder of that value modulo 256. Therefore, assigning –1 to an 8-bit unsigned char gives that object the value 255.
+            * • If we assign an out-of-range value to an object of signed type, the result is undefined. The program might appear to work, it might crash, or it might produce garbage values.
+         * 
+         */ 
 
 
     // English note 
@@ -390,9 +404,59 @@ void note_1()
 /**/
 
 
+// ch2 code
+/**/
+
+    class classtest1{
+        short shorta;
+        char chara;
+        long long llla;
+        int inta;
+    };
+
+    class classtest2{
+        long long llla;
+        int inta;
+        short shorta;
+        char chara;
+    };
+
+    void ex2_1()
+    {
+        int inta;
+        long longa;
+        long long longlonga;
+        short shorta;
+
+        unsigned int uinta;
+        unsigned long ulonga;
+        unsigned long long ulonglonga;
+        unsigned short ushorta;
+
+        float floata;
+        double doublea;
+        std::cout << sizeof(inta) << " " << sizeof(longa) << " " << sizeof(longlonga) << " " << sizeof(shorta) << "\n" 
+                    << sizeof(uinta) << " " << sizeof(ulonga) << " " << sizeof(ulonglonga) << " " << sizeof(ushorta) << "\n" 
+                    << sizeof(floata) << " " << sizeof(doublea) << " " << sizeof(classtest1) << " " << sizeof(classtest2) << std::endl;
+    }
+
+    void ex2_2()
+    {
+        // rate in double
+        // principal in double
+        // payment in double
+    }
+
+    void ch_2()
+    {
+        ex2_1();
+        ex2_2();
+    }
+
 int main()
 {
 
-    ch_1();
+    //ch_1();
+    ch_2();
     return -1;
 }
