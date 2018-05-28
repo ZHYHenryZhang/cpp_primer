@@ -29,6 +29,7 @@ void note_1()
             * • When we assign a bool to one of the other arithmetic types, the resulting value is 1 if the bool is true and 0 if the bool is false.
             * • If we assign an out-of-range value to an object of unsigned type, the result is the remainder of the value modulo the number of values the target type can hold. For example, an 8-bit unsigned char can hold values from 0 through 255, inclusive. If we assign a value outside this range, the compiler assigns the remainder of that value modulo 256. Therefore, assigning –1 to an 8-bit unsigned char gives that object the value 255.
             * • If we assign an out-of-range value to an object of signed type, the result is undefined. The program might appear to work, it might crash, or it might produce garbage values.
+            * do not mix signed and unsigned types. 
          * 
          */ 
 
@@ -40,8 +41,8 @@ void note_1()
         * a statement that yields a result
         * A block is a sequence of zero or more statements enclosed by curly braces.
         * Headers from the standard library are enclosed in angle brackets (< >). Those that are not part of the library are enclosed in double quotes (" ").
-        * 
-        * 
+        * A value, such as 42, is known as a literal because its value self-evident.
+        * What, if any, are the differences between the following definitions
         * 
         * 
         * 
@@ -65,7 +66,21 @@ void note_1()
         * function is not that in mathematics
         * defensive style
         * pipline of input and output might be time consuming
+        * A decimal literal has the smallest type of int, long, or long long (i.e., the first type in this list) in which the literal’s value fits.
+        * If we write what appears to be a negative decimal literal, for example, -42, the minus sign is not part of the literal. The minus sign is an operator that negates the value of its (literal) operand.
+        * 3.14159 3.14159E0 0. 0e0 .001 By default, floating-point literals have type double. We can override the default using a suffix 
+        * Two string literals that appear adjacent to one another and that are separated only by spaces, tabs, or newlines are concatenated into a single literal.
+        * When you write a long literal, use the uppercase L; the lowercase letter l is too easily mistaken for the digit 1.
+        * 
+        * 
         */ 
+    // blin blin notes
+        /* 
+         * call operation ()
+         * regard all operations as function
+         * literals are named for their values are self-evident
+         * 
+         */ 
 
     // coding ideas
         // file operation
@@ -447,10 +462,91 @@ void note_1()
         // payment in double
     }
 
+    void ex2_3()
+    {
+        unsigned u = 10, u2 = 42;
+        std::cout << u2 - u << std::endl;   // output 32
+        std::cout << u - u2 << std::endl;   // output 2^32-32
+
+        int i = 10, i2 = 42;
+        std::cout << i2 - i << std::endl;   // output 32
+        std::cout << i - i2 << std::endl;   // output -32
+
+        std::cout << i - u << std::endl;    // output 0
+        std::cout << u - i << std::endl;    // output 0
+    }
+    
+    void ex2_4()
+    {
+        // check prediction about ex2_3
+    }
+
+    void ex2_5()
+    {
+        std::cout   << "a " <<   sizeof('a') 
+                    << " " <<   sizeof(L'a') 
+                    << " " <<   sizeof("a") 
+                    << " " <<   sizeof(L"a") << std::endl
+                    << "b " <<   sizeof(10) 
+                    << " " <<   sizeof(10u) 
+                    << " " <<   sizeof(10L) 
+                    << " " <<   sizeof(10uL) 
+                    << " " <<   sizeof(012)
+                    << " " <<   sizeof(0xC) << std::endl
+                    << "c " <<   sizeof(3.14)
+                    << " " <<   sizeof(3.14f)
+                    << " " <<   sizeof(3.14L) << std::endl
+                    << "d " <<   sizeof(10.)
+                    << " " <<   sizeof(10e-2) << std::endl;
+        /* output
+        a 1 4 2 8
+        b 4 4 8 8 4 4
+        c 8 4 16
+        d 8 8
+        */
+    }
+
+    void ex2_6()
+    {
+        /*
+        int month = 9, day = 7;
+        int montho = 09, dayo = 07;
+        std::cout << "month:" << month << " day:" << day << std::endl;
+        std::cout << "montho:" << montho << " dayo:" << dayo << std::endl;
+        */
+        // error: 09 invalid octal number
+    }
+
+    void ex2_7()
+    {
+        std::cout   << "Who goes with F\145rgus?\012" << std::endl; // \012 for \n
+        std::cout   << sizeof(3.14e1L) << " "
+                    // << sizeof(1024f) << " " //error use 1024. instead
+                    << sizeof(3.14L) << std::endl;
+
+    }
+
+    void ex2_8()
+    {
+        std::cout << "2M\n2\tM\n";
+    }
+
     void ch_2()
     {
-        ex2_1();
-        ex2_2();
+        // type
+            //ex2_1();
+            //ex2_2();
+            //ex2_3();
+            //ex2_4();
+
+            // literals
+                //ex2_5();
+                //ex2_6();
+                //ex2_7();
+                //ex2_8();
+        // variables
+
+        //
     }
 
 int main()
@@ -460,3 +556,22 @@ int main()
     ch_2();
     return -1;
 }
+
+
+/**/ //tables
+    // 
+    /*  Table 2.2: Specifying the Type of a Literal  
+        //  Character and Character String Literals
+        Prefix Meaning Type
+        u Unicode 16 character char16_t
+        U Unicode 32 character char32_t
+        L wide character wchar_t
+        u8 utf-8 (string literals only) char
+            
+        //    Integer Literals Floating-Point Literals
+        Suffix Minimum Type Suffix Type
+        u or U unsigned f or F float
+        l or L long l or L long double
+        ll or LL long long 
+        */
+    //
