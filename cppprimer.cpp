@@ -71,7 +71,14 @@ void note_1()
         * 3.14159 3.14159E0 0. 0e0 .001 By default, floating-point literals have type double. We can override the default using a suffix 
         * Two string literals that appear adjacent to one another and that are separated only by spaces, tabs, or newlines are concatenated into a single literal.
         * When you write a long literal, use the uppercase L; the lowercase letter l is too easily mistaken for the digit 1.
-        * 
+        * The type determines the size and layout of the variable’s memory, the range of values that can be stored within that memory, and the set of operations that can be applied to the variable. 
+        * Many programmers are confused by the use of the = symbol to initialize a variable. It is tempting to think of initialization as a form of assignment, but initialization and assignment are different operations in C++.
+        * List initialization: For example, we can use any of the following four different ways to define an int variable named units_sold and initialize it to 0: 
+            * int units_sold = 0; 
+            * int units_sold = {0}; 
+            * int units_sold{0}; 
+            * int units_sold(0);
+        * Uninitialized objects of built-in type defined inside a function body have undefined value. Objects of class type that we do not explicitly initialize have a value that is defined by the class.
         * 
         */ 
     // blin blin notes
@@ -79,6 +86,8 @@ void note_1()
          * call operation ()
          * regard all operations as function
          * literals are named for their values are self-evident
+         * A variable provides us with named storage that our programs can manipulate.
+         * 
          * 
          */ 
 
@@ -531,6 +540,35 @@ void note_1()
         std::cout << "2M\n2\tM\n";
     }
 
+    void samp2_2_1()
+    {
+        long double ld = 3.1415926536;
+        //float a{ld}, b = {ld};    // error:narrowing conversion of ‘ld’ from ‘long double’ to ‘float’ inside { }
+        float c(ld), d = ld;      // ok but values will be truncated
+        std::cout << c << " " << d << std::endl;
+    }
+
+    void ex2_9()
+    {
+        // std::cin >> int input_value; // error: expected primary-expression before ‘int’
+        // int i = {3.14}; // error: narrowing conversion
+        // double salary = wage = 9999.99; // error: ‘wage’ was not declared in this scope
+        int j = 3.14;
+    }
+
+
+    std::string global_str_2_10;
+    int global_int_2_10;
+    void ex2_10()
+    {
+        int local_int;
+        std::string local_str;
+        std::cout   << "global_str:" << global_str_2_10
+                    << "  global_int:" << global_int_2_10
+                    << "  local_str:"   << local_str
+                    << "  local_int:"   << local_int << std::endl;
+    }
+
     void ch_2()
     {
         // type
@@ -545,7 +583,10 @@ void note_1()
                 //ex2_7();
                 //ex2_8();
         // variables
-
+            // initialization
+                //samp2_2_1();
+                //ex2_9();
+                ex2_10();
         //
     }
 
