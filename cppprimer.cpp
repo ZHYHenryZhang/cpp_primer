@@ -30,6 +30,16 @@ void note_1()
             * • If we assign an out-of-range value to an object of unsigned type, the result is the remainder of the value modulo the number of values the target type can hold. For example, an 8-bit unsigned char can hold values from 0 through 255, inclusive. If we assign a value outside this range, the compiler assigns the remainder of that value modulo 256. Therefore, assigning –1 to an 8-bit unsigned char gives that object the value 255.
             * • If we assign an out-of-range value to an object of signed type, the result is undefined. The program might appear to work, it might crash, or it might produce garbage values.
             * do not mix signed and unsigned types. 
+         * Initialization
+         * We recommend initializing every object of built-in type. It is not always necessary, but it is easier and safer to provide an initializer until you can be certain it is safe to omit the initializer.
+         * Identifiers
+         * The standard also reserves a set of names for use in the standard library. The identifiers we define in our own programs may not contain two consecutive underscores, nor can an identifier begin with an underscore followed immediately by an uppercase letter. In addition, identifiers defined outside a function may not begin with an underscore.
+         * • An identifier should give some indication of its meaning.
+         * • Variable names normally are lowercase—index, not Index or INDEX.
+         * • Like Sales_item, classes we define usually begin with an uppercase letter.
+         * • Identifiers with multiple words should visually distinguish each word, for example, student_loan or studentLoan, not studentloan.
+         * Naming conventions are most useful when followed consistently.
+         * 
          * 
          */ 
 
@@ -79,6 +89,11 @@ void note_1()
             * int units_sold{0}; 
             * int units_sold(0);
         * Uninitialized objects of built-in type defined inside a function body have undefined value. Objects of class type that we do not explicitly initialize have a value that is defined by the class.
+        * To support separate compilation, C++ distinguishes between declarations and definitions. A declaration makes a name known to the program. A file that wants to use a name defined elsewhere includes a declaration for that name. A definition creates the associated entity.
+        * A variable declaration specifies the type and name of a variable. A variable definition is a declaration. In addition to specifying the name and type, a definition also allocates storage and may provide the variable with an initial value.To obtain a declaration that is not also a definition, we add the extern keyword and may not provide an explicit initializer:
+        * Any declaration that includes an explicit initializer is a definition. We can provide an initializer on a variable defined as extern, but doing so overrides the extern. An extern that has an initializer is a definition
+        * Variables must be defined exactly once but can be declared many times.
+        * 
         * 
         */ 
     // blin blin notes
@@ -569,6 +584,23 @@ void note_1()
                     << "  local_int:"   << local_int << std::endl;
     }
 
+    // extern int ix = 1024;// definition
+    // extern int iz        // declaration
+    void ex2_11()
+    {
+       //int iy;  //definition
+        
+    }
+
+    void ex2_12()
+    {
+        //int double = 3.14;
+        int _;  // cool
+        //int catch-22;
+        int l_or_2 = 1;
+        double Double = 3.14;
+    }
+
     void ch_2()
     {
         // type
@@ -586,7 +618,11 @@ void note_1()
             // initialization
                 //samp2_2_1();
                 //ex2_9();
-                ex2_10();
+                //ex2_10();
+            // declaration
+                //ex2_11();
+            //  Identifiers
+                ex2_12();
         //
     }
 
@@ -614,5 +650,28 @@ int main()
         u or U unsigned f or F float
         l or L long l or L long double
         ll or LL long long 
+        */
+    //
+    /* Table 2.3: C++ Keywords
+        alignas continue friend register true
+        alignof decltype goto reinterpret_cast try
+        asm default if return typedef
+        auto delete inline short typeid
+        bool do int signed typename
+        break double long sizeof union
+        case dynamic_cast mutable static unsigned
+        catch else namespace static_assert using
+        char enum new static_cast virtual
+        char16_t explicit noexcept struct void
+        char32_t export nullptr switch volatile
+        class extern operator template wchar_t
+        const false private this while
+        constexpr float protected thread_local
+        const_cast for public throw
+        */
+    //
+    /*  Table 2.4: C++ Alternative Operator Names
+        and bitand compl not_eq or_eq xor_eq
+        and_eq bitor not or xor
         */
     //
