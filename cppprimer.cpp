@@ -39,8 +39,9 @@ void note_1()
          * • Like Sales_item, classes we define usually begin with an uppercase letter.
          * • Identifiers with multiple words should visually distinguish each word, for example, student_loan or studentLoan, not studentloan.
          * Naming conventions are most useful when followed consistently.
-         * 
-         * 
+         * It is usually a good idea to define an object near the point at which the object is first used. Doing so improves readability by making it easy to find the definition of the variable. More importantly, it is often easier to give the variable a useful initial value when the variable is defined close to where it is first used.
+         * It is bad style for a function to use a global variable and also define a local variable with the same name
+         * ::var // The global scope has no name. Hence, when the scope operator has an empty left-hand side, it is a request to fetch the name on the right-hand side from the global scope. 
          */ 
 
 
@@ -93,6 +94,15 @@ void note_1()
         * A variable declaration specifies the type and name of a variable. A variable definition is a declaration. In addition to specifying the name and type, a definition also allocates storage and may provide the variable with an initial value.To obtain a declaration that is not also a definition, we add the extern keyword and may not provide an explicit initializer:
         * Any declaration that includes an explicit initializer is a definition. We can provide an initializer on a variable defined as extern, but doing so overrides the extern. An extern that has an initializer is a definition
         * Variables must be defined exactly once but can be declared many times.
+        * A scope is a part of the program in which a name has a particular meaning.
+        * Once a name has been declared in a scope, that name can be used by scopes nested inside that scope. Names declared in the outer scope can also be redefined in an inner scope
+        * A compound type is a type that is defined in terms of another type. i.e.: references and pointers
+        * When we define a reference, instead of copying the initializer’s value, we bind the reference to its initializer. Once initialized, a reference remains bound to its initial object. There is no way to rebind a reference to refer to a different object. Because there is no way to rebind a reference, references must be initialized.
+        * The value (i.e., the address) stored in a pointer can be in one of four states:
+            1. It can point to an object.
+            2. It can point to the location just immediately past the end of an object.
+            3. It can be a null pointer, indicating that it is not bound to any object.
+            4. It can be invalid; values other than the preceding three are invalid.
         * 
         * 
         */ 
@@ -601,6 +611,52 @@ void note_1()
         double Double = 3.14;
     }
 
+    int i_ex2_13 = 42;
+    void ex2_13()
+    {
+        int i_ex2_13 = 100;
+        int j = i_ex2_13;
+        std::cout << "j:" << j << std::endl;
+    }
+
+    void ex2_14()
+    {
+        int i = 100, sum = 0;
+        for (int i = 0; i != 10; ++i)
+            sum += i;
+        std::cout << i << " " << sum << std::endl;
+    }
+
+    void ex2_15()
+    {
+        int ival = 1.01;
+        // int &rval1 = 1.01; // invalid initialization of non-const reference of type ‘int&’ from an rvalue of type ‘int’
+        int &rval2 = ival;
+        // int &rval3;     // invalid initialization of non-const reference of type ‘int&’ from an rvalue of type ‘int’
+    }
+
+    void ex2_16()
+    {
+        int i = 0, &r1 =i;
+        double d = 0, &r2 = d;
+        std::cout << (r2 = 3.14159) << std::endl;   // without () error: invalid operands of types ‘double’ and ‘<unresolved overloaded function type>’ to binary ‘operator<<’
+        std::cout << (r2 = r1) << std::endl;
+        std::cout << (i = r2) << std::endl;
+        std::cout << (r1 = d) << std::endl;
+    }
+
+    void ex2_17()
+    {
+        int i, &ri = i;
+        i = 5, ri = 10;
+        std::cout << i << " " << ri << std::endl;
+    }
+
+    void ex2_18()
+    {
+
+    }
+
     void ch_2()
     {
         // type
@@ -622,8 +678,17 @@ void note_1()
             // declaration
                 //ex2_11();
             //  Identifiers
-                ex2_12();
-        //
+                //ex2_12();
+            // scope
+                //ex2_13();
+                //ex2_14();
+        // Compound types
+            //  reference
+                //ex2_15();
+                //ex2_16();
+                //ex2_17();
+                ex2_18();
+
     }
 
 int main()
