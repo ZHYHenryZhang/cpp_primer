@@ -42,6 +42,10 @@ void note_1()
          * It is usually a good idea to define an object near the point at which the object is first used. Doing so improves readability by making it easy to find the definition of the variable. More importantly, it is often easier to give the variable a useful initial value when the variable is defined close to where it is first used.
          * It is bad style for a function to use a global variable and also define a local variable with the same name
          * ::var // The global scope has no name. Hence, when the scope operator has an empty left-hand side, it is a request to fetch the name on the right-hand side from the global scope. 
+         * Modern C++ programs generally should avoid using NULL and use nullptr instead.
+         * Our recommendation to initialize all variables is particularly important for pointers. If possible, define a pointer only after the object to which it should point has been defined. If there is no object to bind to a pointer, then initialize the pointer to nullptr or zero.
+         * 
+         * 
          */ 
 
 
@@ -103,6 +107,23 @@ void note_1()
             2. It can point to the location just immediately past the end of an object.
             3. It can be a null pointer, indicating that it is not bound to any object.
             4. It can be invalid; values other than the preceding three are invalid.
+        * When a pointer points to an object, we can use the dereference operator (the * operator) to access that object
+        * We may dereference only a valid pointer that points to an object.
+        * Some symbols, such as & and *, are used as both an operator in an expression and as part of a declaration. The context in which a symbol is used determines what the symbol means:
+            int i = 42;
+            int &r = i; // & follows a type and is part of a declaration; r is a reference
+            int *p; // * follows a type and is part of a declaration; p is a pointer
+            p = &i; // & is used in an expression as the address-of operator
+            *p = i; // * is used in an expression as the dereference operator
+            int &r2 = *p; // & is part of the declaration; * is the dereference operator
+            In declarations, & and * are used to form compound types. In expressions, these same symbols are used to denote an operator. Because the same symbol is used with very different meanings, it can be helpful to ignore appearances and think of them as if they were different symbols.
+        * nullptr is a literal that has a special type that can be converted (§ 2.1.2, p. 35) to any other pointer type. 
+        * It is illegal to assign an int variable to a pointer, even if the variable’s value happens to be 0.
+        * Both pointers and references give indirect access to other objects. However, there are important differences in how they do so. The most important is that a reference is not an object. Once we have defined a reference, there is no way to make that reference refer to a different object. When we use a reference, we always get the object to which the reference was initially bound.
+        * So long as the pointer has a valid value, we can use a pointer in a condition. Just as when we use an arithmetic value in a condition (§ 2.1.2, p. 35), if the pointer is 0, then the condition is false
+        * The type void* is a special pointer type that can hold the address of any object. Like any other pointer, a void* pointer holds an address, but the type of the object at that address is unknown
+        * We cannot use a void* to operate on the object it addresses—we don’t know that object’s type, and the type determines what operations we can perform on the object.
+        * Generally, we use a void* pointer to deal with memory as memory, rather than using the pointer to access the object stored in that memory. We’ll cover using void* pointers in this way in § 19.1.1 (p. 821). § 4.11.3 (p. 163) will show how we can retrieve the address stored in a void* pointer.
         * 
         * 
         */ 
@@ -112,7 +133,7 @@ void note_1()
          * regard all operations as function
          * literals are named for their values are self-evident
          * A variable provides us with named storage that our programs can manipulate.
-         * 
+         * understand what is a valid pointer value and rethink the meaning of valid. Here is it means not an undefined value.
          * 
          */ 
 
