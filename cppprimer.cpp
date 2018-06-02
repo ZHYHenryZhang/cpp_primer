@@ -675,6 +675,70 @@ void note_1()
 
     void ex2_18()
     {
+        int i = 0;
+        int j = 1;
+        int *ip = &i;
+        int *ipp = &i;
+        std::cout << "ip:" << &ip << "   ipp:" << &ipp << "  *ipp: "<< *ipp <<", "<< *(ipp+1) <<", "<< *(ipp+2) << ", " << *(ipp+3) << std::endl;
+        std::cout << "ip:" << ip << "   *ip:(" << *(ip-1) <<", "<< *ip <<", "<< *(ip+1) << std::endl;
+        
+        ip = &j;
+        std::cout << *ipp <<", "<< *(ipp+1) <<", "<< *(ipp+2) << ", " << *(ipp+3) << std::endl;
+        std::cout << "ip:" << ip << "   *ip:(" << *(ip-1) <<", "<< *ip <<", "<< *(ip+1) << std::endl;
+        *ip = *ip + 1;
+        std::cout << *ipp <<", "<< *(ipp+1) <<", "<< *(ipp+2) << ", " << *(ipp+3) << std::endl;
+        std::cout << "ip:" << ip << "   *ip:(" << *(ip-1) <<", "<< *ip <<", "<< *(ip+1) << std::endl;
+        *ip ++;
+        // the pointer now points to inself
+        std::cout << *ipp <<", "<< *(ipp+1) <<", "<< *(ipp+2) << ", " << *(ipp+3) << std::endl;
+        std::cout << "&ip:" << &ip << " ip:" << ip << "   *ip:(" << *(ip-1) <<", "<< *ip <<", "<< *(ip+1) << std::endl;
+        ++ *ip;
+        std::cout << *ipp <<", "<< *(ipp+1) <<", "<< *(ipp+2) << ", " << *(ipp+3) << std::endl;
+        std::cout << "&ip:" << &ip << " ip:" << ip << "   *ip:(" << *(ip-1) <<", "<< *ip <<", "<< *(ip+1) << std::endl;
+    }
+
+    void ex2_19()
+    {
+        int i = 0,j = 1;
+        int &ir = i;
+        int *ip = &i;
+        std::cout << "i:" << "  ir:" << ir << " ip:" << ip << " *ip:" << *ip << std::endl; 
+        ip = &j;// the reference cannot be rebind to another value.
+    }
+
+    void ex2_20()
+    {
+        int i = 42;
+        int *p1 = &i;
+        *p1 = *p1 * *p1;
+    }
+
+    void ex2_21()
+    {
+        int i = 0;
+        //double* dp = &i;//<< "ip:" << &ip 
+        //int *ip = i;//<< "ip:" << &ip 
+        int *p = &i;
+
+    }
+
+    void ex2_22()
+    {
+        int i = 1;
+        int *ip = &i;
+        if(ip)
+            std::cout << "ip is true" << std::endl;
+        if(*ip)
+            std::cout << "*ip is true" << std::endl;
+    }
+
+    void ex2_23()
+    {
+
+    }
+
+    void ex2_24()
+    {
 
     }
 
@@ -708,7 +772,13 @@ void note_1()
                 //ex2_15();
                 //ex2_16();
                 //ex2_17();
-                ex2_18();
+                //ex2_18(); //*** cool pointer that points to itself
+                //ex2_19();
+                //ex2_20();
+                //ex2_21();
+                //ex2_22();
+                ex2_23();
+                ex2_24();
 
     }
 
