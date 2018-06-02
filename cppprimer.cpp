@@ -732,14 +732,42 @@ void note_1()
             std::cout << "*ip is true" << std::endl;
     }
 
+    void ex2_23_stack()
+    {
+        int i = 1;
+        int j = 2;
+        int *ip = &i;
+        std::cout <<"ip in stack:" << &ip << "  ip:" << ip << std::endl;
+        *(ip+10) = *(ip+2);
+
+    }
+
     void ex2_23()
     {
-
+        // the behavior of invalid pointer is undefined
+        // therefore you cannot decide
+        int i=3;
+        ex2_23_stack();
+        int *ip;
+        std::cout << "ip in stack:" << &ip << "  ip:" << ip << std::endl;
+        if(ip)
+            std::cout << "ip is true" << std::endl;
+        else
+            std::cout << "ip is not true" << std::endl; 
+        /*
+        ip in stack:0x7ffe6e353ea0  ip:0x7ffe6e353e98
+        ip in stack:0x7ffe6e353e78  ip:0x7fb17be9de3e
+        ip is true
+        *** stack smashing detected ***: ./cppprimer terminated
+        Aborted (core dumped)
+        */
     }
 
     void ex2_24()
     {
-
+        int i = 42;
+        void *p = &i;
+        // long *lp = &i;      // error: cannot convert ‘int*’ to ‘long int*’ in initialization
     }
 
     void ch_2()
@@ -777,8 +805,9 @@ void note_1()
                 //ex2_20();
                 //ex2_21();
                 //ex2_22();
-                ex2_23();
-                ex2_24();
+                //ex2_23();
+                //ex2_24();
+                
 
     }
 
