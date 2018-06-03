@@ -128,6 +128,15 @@ void note_1()
             int *p1, *p2; // both p1 and p2 are pointers to int
             This style emphasizes that the variable has the indicated compound type. The second places the type modifier with the type but defines only one variable per statement:
             int* p1; // p1 is a pointer to int   int* p2; // p2 is a pointer to int
+        * When a const object is initialized from a compile-time constant, the compiler will usually replace uses of the variable with its corresponding value during compilation.
+        * To substitute the value for the variable, the compiler has to see the variable’s initializer. When we split a program into multiple files, every file that uses the const must have access to its initializer. In order to see the initializer, the variable must be defined in every file that wants to use the variable’s value (§ 2.2.2, p. 45). To support this usage, yet avoid multiple definitions of the same variable, const variables are defined as local to the file. When we define a const with the same name in multiple files, it is as if we had written definitions for separate variables in each file.
+        * We want to define the const in one file, and declare it in the other files that use that object. To define a single instance of a const variable, we use the keyword extern on both its definition and declaration(s)
+        * As with any other object, we can bind a reference to an object of a const type. To do so we use a reference to const
+        * A temporary object is an unnamed object created by the compiler when it needs a place to store a result from evaluating an expression.
+        * It is important to realize that a reference to const restricts only what we can do through that reference. Binding a reference to const to an object says nothing about whether the underlying object itself is const.
+        * 
+        * 
+        * 
         * 
         */ 
     // blin blin notes
@@ -793,6 +802,14 @@ void note_1()
         int *iiip, iiip2;   // pointer of int, int;
     }
 
+    void ex2_26()
+    {
+        // const int buf;  // error: uninitialized const ‘buf’ [-fpermissive]
+        int cnt = 0;
+        const int sz =cnt;
+        // ++cnt, ++sz;    // error: increment of read-only variable ‘sz’
+    }
+
     void ch_2()
     {
         // type
@@ -833,6 +850,7 @@ void note_1()
                 //ex2_24();
                 //samp2_3_3();
                 //ex2_25();
+                //ex2_26();
                 
 
     }
