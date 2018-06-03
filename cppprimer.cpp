@@ -124,7 +124,10 @@ void note_1()
         * The type void* is a special pointer type that can hold the address of any object. Like any other pointer, a void* pointer holds an address, but the type of the object at that address is unknown
         * We cannot use a void* to operate on the object it addresses—we don’t know that object’s type, and the type determines what operations we can perform on the object.
         * Generally, we use a void* pointer to deal with memory as memory, rather than using the pointer to access the object stored in that memory. We’ll cover using void* pointers in this way in § 19.1.1 (p. 821). § 4.11.3 (p. 163) will show how we can retrieve the address stored in a void* pointer.
-        * 
+        * There are two common styles used to define multiple variables with pointer or reference type. The first places the type modifier adjacent to the identifier:
+            int *p1, *p2; // both p1 and p2 are pointers to int
+            This style emphasizes that the variable has the indicated compound type. The second places the type modifier with the type but defines only one variable per statement:
+            int* p1; // p1 is a pointer to int   int* p2; // p2 is a pointer to int
         * 
         */ 
     // blin blin notes
@@ -770,6 +773,26 @@ void note_1()
         // long *lp = &i;      // error: cannot convert ‘int*’ to ‘long int*’ in initialization
     }
 
+    void samp2_3_3()
+    {
+        int i = 42;
+        int *p;
+        int *&r = p;
+        r = &i;
+        *r = 0;
+        std::cout << "i:" << i << "     r:" << r << "   p:" << p << "   *p:" << *p << " *r:" << *r << std::endl;
+        /*
+        The easiest way to understand the type of r is to read the definition right to left. The symbol closest to the name of the variable (in this case the & in &r) is the one that has the most immediate effect on the variable’s type. Thus, we know that r is a reference. The rest of the declarator determines the type to which r refers. The next symbol, * in this case, says that the type r refers to is a pointer type. Finally, the base type of the declaration says that r is a reference to a pointer to an int.
+        */
+    }
+
+    void ex2_25()
+    {
+        int* ip, i, &r = i; // pointer of int, int, reference of int
+        int ii, *iip = 0;   // int, pointer of in
+        int *iiip, iiip2;   // pointer of int, int;
+    }
+
     void ch_2()
     {
         // type
@@ -800,6 +823,7 @@ void note_1()
                 //ex2_15();
                 //ex2_16();
                 //ex2_17();
+            // pointers
                 //ex2_18(); //*** cool pointer that points to itself
                 //ex2_19();
                 //ex2_20();
@@ -807,6 +831,8 @@ void note_1()
                 //ex2_22();
                 //ex2_23();
                 //ex2_24();
+                //samp2_3_3();
+                //ex2_25();
                 
 
     }
