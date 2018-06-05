@@ -58,7 +58,7 @@ void note_1()
         * Headers from the standard library are enclosed in angle brackets (< >). Those that are not part of the library are enclosed in double quotes (" ").
         * A value, such as 42, is known as a literal because its value self-evident.
         * What, if any, are the differences between the following definitions
-        * 
+        * A type alias is a name that is a synonym for another type. 
         * 
         * 
         * 
@@ -139,9 +139,9 @@ void note_1()
         * We indicate that the pointer is const by putting the const after the *. This placement indicates that it is the pointer, not the pointed-to type, that is const
         * We use the term top-level const to indicate that the pointer itself is a const. When a pointer can point to a const object, we refer to that const as a low-level const.
         * The distinction between top-level and low-level matters when we copy an object. When we copy an object, top-level consts are ignored. On the other hand, low-level const is never ignored. When we copy an object, both objects must have the same low-level const qualification or there must be a conversion between the types of the two objects. In general, we can convert a nonconst to const but not the other way round
-        * 
-        * 
-        * 
+        * Generally, it is a good idea to use constexpr for variables that you intend to use as constant expressions.
+        * that constexpr imposes a top-level const (§ 2.4.3, p. 63) on the objects it defines.
+        * An alias declaration starts with the keyword using followed by the alias name and an =. The alias declaration defines the name on the left-hand side of the = as an alias for the type that appears on the right-hand side.
         * 
         */ 
     // blin blin notes
@@ -870,7 +870,38 @@ void note_1()
 
     void ex2_31()
     {
+        const int i = 1;    //  top-level const
+        const int v2 = 0;   //  top level const
+        int v1 =v2;
+        int *p1 = &v1, &r1 = v1;
+        const int *p2 = &v2, *const p3 = & i, &r2 = v2; // p2 t, p3, tl, r2 t;
 
+        r1 = v2; // low level assignment
+        //p1 = p2; // can't convert error: invalid conversion from ‘const int*’ to ‘int*’ [-fpermissive]
+        //p1 = p3; // can't convert error: invalid conversion from ‘const int*’ to ‘int*’ [-fpermissive]
+        p2 = p1; // okay
+        p2 = p3; // okay
+
+    }
+
+    int null_ex2_32 = 0;
+    void ex2_32()
+    {
+        // int null = 0, *p = null; // error: invalid conversion from ‘int’ to ‘int*’ [-fpermissive]
+        // constexpr int null2 = 0, *p2 = null2; // error: invalid conversion from ‘int’ to ‘int*’ [-fpermissive]
+        int null3 = 0, *p3 = 0;
+        // constexpr int *p4 = &null3; // error: ‘& null3’ is not a constant expression
+        constexpr int *p5 = &null_ex2_32;
+    }
+
+//
+
+    void samp2_5_1()
+    {
+        typedef double wages; // wages is a synonym for double
+        typedef wages base, *p; // base is a synonym for double, p for double*
+        wages week = 0.1;
+        p ip = &week;
     }
 
     void ch_2()
@@ -917,8 +948,12 @@ void note_1()
                 //ex2_27();
                 //ex2_28();
                 //ex2_29();
-                ex2_30();
-                ex2_31();
+                //ex2_30();
+                //ex2_31();
+                //ex2_32();
+        // dealing with types
+            samp2_5_1();
+        //
     }
 
 int main()
