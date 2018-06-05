@@ -134,6 +134,11 @@ void note_1()
         * As with any other object, we can bind a reference to an object of a const type. To do so we use a reference to const
         * A temporary object is an unnamed object created by the compiler when it needs a place to store a result from evaluating an expression.
         * It is important to realize that a reference to const restricts only what we can do through that reference. Binding a reference to const to an object says nothing about whether the underlying object itself is const.
+        * We may store the address of a const object only in a pointer to const
+        * It may be helpful to think of pointers and references to const as pointers or references ”that think they point or refer to const.
+        * We indicate that the pointer is const by putting the const after the *. This placement indicates that it is the pointer, not the pointed-to type, that is const
+        * We use the term top-level const to indicate that the pointer itself is a const. When a pointer can point to a const object, we refer to that const as a low-level const.
+        * The distinction between top-level and low-level matters when we copy an object. When we copy an object, top-level consts are ignored. On the other hand, low-level const is never ignored. When we copy an object, both objects must have the same low-level const qualification or there must be a conversion between the types of the two objects. In general, we can convert a nonconst to const but not the other way round
         * 
         * 
         * 
@@ -146,6 +151,10 @@ void note_1()
          * literals are named for their values are self-evident
          * A variable provides us with named storage that our programs can manipulate.
          * understand what is a valid pointer value and rethink the meaning of valid. Here is it means not an undefined value.
+         * int errNumb = 0; int *const curErr = &errNumb; // curErr will always point to errNumb
+         * As we saw in § 2.3.3 (p. 58), the easiest way to understand these declarations is to read them from right to left. In this case, the symbol closest to curErr is const, which means that curErr itself will be a const object. The type of that object is formed from the rest of the declarator. The next symbol in the declarator is *, which means that curErr is a const pointer. Finally, the base type of the declaration completes the type of curErr, which is a const pointer to an object of type int. 
+         * 
+         * 
          * 
          */ 
 
@@ -810,6 +819,60 @@ void note_1()
         // ++cnt, ++sz;    // error: increment of read-only variable ‘sz’
     }
 
+    void ex2_27()
+    {
+        int i = -1;
+        // int i = -1, &r = 0; // 0 is not an object error: invalid initialization of non-const reference of type ‘int&’ from an rvalue of type ‘int’
+        int i2 = 0;
+        
+        int *const p2 = &i2;    // fine
+        const int i3 = -1, &r4 = 0;  // okay since reference is a const tempororay variable is used
+        const int *const p3 = &i2;  // legal
+        const int *p = &i2;         // legal
+        //  const int &const r2;        // error: ‘const’ qualifiers cannot be applied to ‘const int&’ error: ‘r2’ declared as reference but not initialized 
+        const int i4 = i, &r3 = i;  // okay 
+    }
+
+    void ex2_28()
+    {
+        //int i, *const cp;       // error: uninitialized const ‘cp’ [-fpermissive]
+        //int *p1, *const p2;     // error: uninitialized const ‘p2’ [-fpermissive]
+        //const int ic, &r = ic;  // error: uninitialized const ‘ic’ [-fpermissive]
+        //const int *const p3;    // error: uninitialized const ‘p3’ [-fpermissive]
+        const int *p;
+    }
+
+    void ex2_29()
+    {
+        int i;//, *const cp;       // error: uninitialized const ‘cp’ [-fpermissive]
+        int *p1, *const p2=p1;     // error: uninitialized const ‘p2’ [-fpermissive]
+        const int ic = 1, &r = ic;  // error: uninitialized const ‘ic’ [-fpermissive]
+        const int *const p3 = &ic;    // error: uninitialized const ‘p3’ [-fpermissive]
+        const int *p;
+        i = ic;
+        /*
+        p1 = &ic; // p1 is not a pointer to const error: invalid conversion from ‘const int*’ to ‘int*’ [-fpermissive]
+        p1 = p3;  // p1 is not a pointer to const error: invalid conversion from ‘const int*’ to ‘int*’ [-fpermissive]
+        p3 = &ic; // const pointer cannnot be assigned error: assignment of read-only variable ‘p3’
+        p2 = p1;  // const pointer cannot be assigned error: assignment of read-only variable ‘p2’
+        ic = *p3; // const cannot be assigned error: assignment of read-only variable ‘ic’
+        */
+    }
+
+    void ex2_30()
+    {
+        const int i = 1;    //  top-level const
+        const int v2 = 0;   //  top level const
+        int v1 =v2;
+        int *p1 = &v1, &r1 = v1;
+        const int *p2 = &v2, *const p3 = & i, &r2 = v2; // p2 t, p3, tl, r2 t;
+    }
+
+    void ex2_31()
+    {
+
+    }
+
     void ch_2()
     {
         // type
@@ -851,8 +914,11 @@ void note_1()
                 //samp2_3_3();
                 //ex2_25();
                 //ex2_26();
-                
-
+                //ex2_27();
+                //ex2_28();
+                //ex2_29();
+                ex2_30();
+                ex2_31();
     }
 
 int main()
