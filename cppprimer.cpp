@@ -142,6 +142,8 @@ void note_1()
         * Generally, it is a good idea to use constexpr for variables that you intend to use as constant expressions.
         * that constexpr imposes a top-level const (§ 2.4.3, p. 63) on the objects it defines.
         * An alias declaration starts with the keyword using followed by the alias name and an =. The alias declaration defines the name on the left-hand side of the = as an alias for the type that appears on the right-hand side.
+        * As with any other type specifier, we can define multiple variables using auto. Because a declaration can involve only a single base type, the initializers for all the variables in the declaration must have types that are consistent with each other
+        * 
         * 
         */ 
     // blin blin notes
@@ -904,6 +906,38 @@ void note_1()
         p ip = &week;
     }
 
+    void ex2_33()
+    {
+        int i = 0, &r = i;  // int i, ref to int r
+        auto a = r;         // int a
+        const int ci = i, &cr = ci;     // const int ci, ref to const int cr
+        auto b = ci;        // int b
+        auto c = cr;        // int c
+        auto d = &i;        // pointer to int d
+        auto e = &ci;       // pointer to const int e
+        const auto f = ci;  // const int f
+        auto &g = ci;       // ref to const g
+        const auto &j = 42; // 
+
+        a = 42;
+        b =42;
+        c = 42;
+        // d = 42; // error: invalid conversion from ‘int’ to ‘int*’ [-fpermissive]
+        // e = 42; // error: invalid conversion from ‘int’ to ‘const int*’ [-fpermissive]
+        // g = 42; // error: assignment of read-only reference ‘g’
+
+    }
+
+    void ex2_34()
+    {
+
+    }
+
+    void ex2_35()
+    {
+
+    }
+
     void ch_2()
     {
         // type
@@ -953,6 +987,9 @@ void note_1()
                 //ex2_32();
         // dealing with types
             samp2_5_1();
+            ex2_33();
+            ex2_34();
+            ex2_35();
         //
     }
 
