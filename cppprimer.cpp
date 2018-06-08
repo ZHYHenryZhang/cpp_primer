@@ -143,6 +143,11 @@ void note_1()
         * that constexpr imposes a top-level const (§ 2.4.3, p. 63) on the objects it defines.
         * An alias declaration starts with the keyword using followed by the alias name and an =. The alias declaration defines the name on the left-hand side of the = as an alias for the type that appears on the right-hand side.
         * As with any other type specifier, we can define multiple variables using auto. Because a declaration can involve only a single base type, the initializers for all the variables in the declaration must have types that are consistent with each other
+        * It is worth noting that decltype is the only context in which a variable defined as a reference is not treated as a synonym for the object to which it refers.
+        * Generally speaking, decltype returns a reference type for expressions that yield objects that can stand on the left-hand side of the assignment:
+        * Remember that decltype((variable)) (note, double parentheses) is always a reference type, but decltype(variable) is a reference type only if variable is a reference.
+        * 
+        * 
         * 
         * 
         */ 
@@ -919,9 +924,15 @@ void note_1()
         auto &g = ci;       // ref to const g
         const auto &j = 42; // 
 
+        std::cout << a << std::endl;    // 0 
         a = 42;
+        std::cout << a << std::endl;    // 42
+        std::cout << b << std::endl;    // 0
         b =42;
+        std::cout << b << std::endl;    // 42
+        std::cout << c << std::endl;    // 0
         c = 42;
+        std::cout << c << std::endl;    // 42
         // d = 42; // error: invalid conversion from ‘int’ to ‘int*’ [-fpermissive]
         // e = 42; // error: invalid conversion from ‘int’ to ‘const int*’ [-fpermissive]
         // g = 42; // error: assignment of read-only reference ‘g’
@@ -930,12 +941,60 @@ void note_1()
 
     void ex2_34()
     {
-
+        // included in 33
     }
 
     void ex2_35()
     {
+        const int i = 42;   // const int i
+        auto j = i;         // int j
+        const auto &k = i;  // ref to const k
+        auto *p = &i;       // pointer to const p
+        const auto j2 = i, &k2 = i; // const int j2, ref to const k2
+        // k = 3;  // error: assignment of read-only reference ‘k’
+        // k2 = 1; // error: assignment of read-only reference ‘k2’
+        // *p = 2; // error: assignment of read-only location ‘* p’
+        j = 5;
+        p = &j;
+        std::cout << *p << std::endl;
+    }
 
+    void ex2_36()
+    {
+        int a = 3, b = 4;
+        decltype(a) c = a;
+        decltype((a)) d = a; // ref to a
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        ++c; // 3, 4, 4, 3
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        ++d; // 4, 4, 4, 4
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+    }
+
+    void ex2_37()
+    {
+        int a = 3, b = 5;
+        decltype(a) c = a;
+        decltype(a = b) d = a; // ref to a and note that a = b is not executed
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        ++c; // 3, 4, 4, 3
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        ++d; // 4, 4, 4, 4
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+    }
+
+    void ex2_38()
+    {
+        int a = 3, &b = a;
+        auto c = b;
+        decltype(b) d = a;
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        c = 1;  // 3, 3, 1, 3
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        d = 2;  // 2, 2, 1, 2
+        std::cout << "( " << a << ", " << b << ", " << c << ", " << d << ")" << std::endl;
+        auto e = a;
+        decltype(a) f = a;
     }
 
     void ch_2()
@@ -986,10 +1045,13 @@ void note_1()
                 //ex2_31();
                 //ex2_32();
         // dealing with types
-            samp2_5_1();
-            ex2_33();
-            ex2_34();
-            ex2_35();
+            //samp2_5_1();
+            //ex2_33();
+            //ex2_34();
+            //ex2_35();
+            //ex2_36();
+            //ex2_37();
+            ex2_38();
         //
     }
 
