@@ -44,6 +44,10 @@ void note_1()
          * ::var // The global scope has no name. Hence, when the scope operator has an empty left-hand side, it is a request to fetch the name on the right-hand side from the global scope. 
          * Modern C++ programs generally should avoid using NULL and use nullptr instead.
          * Our recommendation to initialize all variables is particularly important for pointers. If possible, define a pointer only after the object to which it should point has been defined. If there is no object to bind to a pointer, then initialize the pointer to nullptr or zero.
+         * Ordinarily, it is a bad idea to define an object as part of a class definition. Doing so obscures the code by combining the definitions of two different entities—the class and a variable—in a single statement.
+         * It is a common mistake among new programmers to forget the semicolon at the end of a class definition.
+         * Under the new standard, we can supply an in-class initializer for a data member. When we create objects, the in-class initializers will be used to initialize the data members. Members without an initializer are default initialized. In-class initializers must either be enclosed inside curly braces or follow an = sign.
+         * 
          * 
          * 
          */ 
@@ -146,8 +150,8 @@ void note_1()
         * It is worth noting that decltype is the only context in which a variable defined as a reference is not treated as a synonym for the object to which it refers.
         * Generally speaking, decltype returns a reference type for expressions that yield objects that can stand on the left-hand side of the assignment:
         * Remember that decltype((variable)) (note, double parentheses) is always a reference type, but decltype(variable) is a reference type only if variable is a reference.
-        * 
-        * 
+        * At the most basic level, a data structure is a way to group together related data elements and a strategy for using those data.
+        * In C++ we define our own data types by defining a class. The library types string, istream, and ostream are all defined as classes.
         * 
         * 
         */ 
@@ -997,6 +1001,16 @@ void note_1()
         decltype(a) f = a;
     }
 
+    void ex2_39()
+    {
+        // struct Foo{ }   // error: expected ‘;’ after struct definition
+    }
+
+    void ex2_40()
+    {
+        // implement sales_data
+    }
+
     void ch_2()
     {
         // type
@@ -1051,7 +1065,10 @@ void note_1()
             //ex2_35();
             //ex2_36();
             //ex2_37();
-            ex2_38();
+            //ex2_38();
+        // define our own data structure
+            //ex2_39();
+            //ex2_40();
         //
     }
 
