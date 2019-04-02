@@ -4,7 +4,8 @@
 *
 
 # Unignore all with extensions
-!*.*
+!*.cpp
+!*.txt
 
 # Unignore all dirs
 !*/
@@ -15,7 +16,7 @@
 
 # Unignore all in /data
 !data/*
-
+!.gitignore
 # Ignore files with extension `.class` & `.sm`
 # *.class
 # *.sm
